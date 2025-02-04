@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from sample_app.urls import router
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -24,14 +24,9 @@ from rest_framework_simplejwt.views import (
 )
 
 
-from sample_app.views import CustomerView, OrderViewSet, ProductViewSet
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
-router = DefaultRouter()
 
-router.register('orders', OrderViewSet, basename="orders")
-
-router.register('products', ProductViewSet, basename="products")
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -42,7 +37,8 @@ urlpatterns = [
     # Optional UI:
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-    path('customer/', CustomerView.as_view()),
-    path('users/', include('authentication.urls')),
+    path('auth/', include('authentication.urls')),
+
+    path('app/', include('sample_app.urls'))
 
 ]

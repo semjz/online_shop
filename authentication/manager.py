@@ -8,7 +8,7 @@ class UserManager(BaseUserManager):
             raise ValueError("The Username field must be set")
 
         user = self.model(username=username, **extra_fields)
-        user.set_password(password)  # ✅ Properly hashes the password
+        user.set_password(password)
         user.save(using=self._db)
         return user
 
@@ -19,5 +19,5 @@ class UserManager(BaseUserManager):
         return self.create_user(username, password, **extra_fields)
 
     def get_by_natural_key(self, username):
-        return self.get(username=username)  # ✅ Fixes missing method error
+        return self.get(username=username)
 
