@@ -1,1 +1,1 @@
-# online_shop"# online_shop" 
+# To view swagger document use this url 'api/schema/swagger-ui/'
